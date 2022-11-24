@@ -1,0 +1,113 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    {{ movie.title }} - O'Flix
+{% endblock %}
+
+{% block body %}
+    <!-- main -->
+    {# dump(movie) #}
+    <div class="container bg-lighttt pt-5">
+
+        <div class="row mb-2">
+
+            <div class="col">
+
+                <div
+                    class="row g-0 border rounded overflow-hidden flex-md-row align-items-start mb-4 shadow-smmm position-relative">
+                    <div class="col-4 movie__poster img-thumbnail"
+                        style="background-image: url({{ movie.poster }});">
+                        <img src="{{ asset('assets/images/poster-placeholder.png') }}" class="img-fluid">
+                        <!-- img src="https://m.media-amazon.com/images/M/MV5BNThmZGY4NzgtMTM4OC00NzNkLWEwNmEtMjdhMGY5YTc1NDE4XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg" class="img-fluid" -->
+                    </div>
+
+                    <div class="col-8 p-4 d-flex flex-column position-static bg-light">
+                        <a href="" class="movie__favorite fs-1 my-2 mx-3 link-danger"><i class="bi bi-bookmark-plus"></i></a>
+                        <strong class="d-inline-block mb-2 text-primary">{{ movie.type }}</strong>
+                        <h3 class="mb-1">{{ movie.title }}</h3>
+                        <div class="mb-1 text-muted">{{ movie.duration }} min</div>
+                        <p>
+                            {% for genre in movie.genres %}
+                                <span class="badge bg-warning text-dark">{{ genre.name }}</span>
+                            {% else %}
+                                <em>aucun genre associé a ce film</em>
+                            {% endfor %}
+                        </p>
+                        <p>{{ movie.synopsis }}</p>
+                        <div class="d-flex mb-4" style="color: orange;">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-half"></i>
+                            <span class="ps-1">{{ movie.rating }}</span>
+                        </div>
+
+                        {# https://twig.symfony.com/doc/2.x/filters/length.html #}
+                        <h2>{{ movie.seasons|length }} Saisons</h2>
+                        <ul class="list-unstyled">
+                            {% for season in movie.seasons %}
+                                <li><span class="badge bg-danger fs-6 mb-2">Saison {{ season.number }}</span><small class="ms-1">({{ season.episodesCount}} épisodes)</small></li>
+                            {% endfor %}
+                            {# dump(movie) #}
+                        </ul>
+
+                        <dl class="row">
+                            <dt class="col-sm-12">Avec</dt>
+                            <dd class="col-sm-12">
+                            {# https://twig.symfony.com/doc/3.x/filters/sort.html #}
+                            {#
+                                https://www.youtube.com/watch?v=BeoCbJPuvSE
+
+                                pour faire un tri on compare toujours deux objets : a et b
+                                ensuite un fournit un moyen de comparaison que l'on donne après '=>'
+                                notre moyen de comparaison est la propriété creditOrder
+                                si on veut trier par odre décroissant on rajoute le filtre '|reverse'
+                            #}
+                                {# solution avec twig 
+                                    {% for casting in movie.castings|sort((a, b) => a.creditOrder <=> b.creditOrder) %}
+                                #}
+                                {# solution avec findBy() dans le controller #}
+                                {% for casting in castings %}
+                                    {{ casting.person.firstname }} {{ casting.person.lastname|upper }} ({{ casting.role }})<br>
+                                    {# casting.person.castings[0].movie.genres[0].name #}
+                                {% else %}
+                                    <em>Aucun acteur dans ce film 😱</em>
+                                {% endfor %}
+                                 {# dump(movie) #}
+                            </dd>
+                            <dt class="col-sm-12">Pays</dt>
+                            <dd class="col-sm-12">{{ movie.country }}</dd>
+                            <dt class="col-sm-12">Année</dt>
+                            <dd class="col-sm-12">{{ movie.releaseDate|date('l jS F Y') }}</dd>
+                        </dl>
+                        <div>
+                            {# dump(app.user) #}
+                            {% if is_granted("ROLE_USER") %}
+                                <a href="{{ path('review_add', {id: movie.id }) }}" class="btn btn-info">Ajouter un commentaire</a>
+                            {% endif %}
+                            <div class="row row-cols-1 row-cols-md-2 g-4">
+                            {% for review in allReviews %}
+                                <div class="col">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Critique de {{review.username}}</h5>
+                                            <em>film vu le {{review.watchedAt|date("d/m/Y")}}</em>
+                                            <p class="card-text">{{review.content}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <em>pas de commentaires, ajoutez-en un !</em>
+                            {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+{% endblock %}

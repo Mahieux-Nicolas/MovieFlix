@@ -1,0 +1,52 @@
+{% extends 'backoffice/backofficebase.html.twig' %}
+
+{% block title %}Movie index{% endblock %}
+
+{% block body %}
+
+    <h1>Movie index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Slug</th>
+                <th>Rating</th>
+                <th>Duration</th>
+                <th>Poster</th>
+                <th>Type</th>
+                <th>ReleaseDate</th>
+                <th>Country</th>
+                <th>UpdatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for movie in movies %}
+            <tr>
+                <td>{{ movie.id }}</td>
+                <td>{{ movie.title }}</td>
+                <td>{{ movie.slug }}</td>
+                <td>{{ movie.rating }}</td>
+                <td>{{ movie.duration }}</td>
+                <td>{{ movie.poster }}</td>
+                <td>{{ movie.type }}</td>
+                <td>{{ movie.releaseDate ? movie.releaseDate|date('Y-m-d') : '' }}</td>
+                <td>{{ movie.country }}</td>
+                <td>{{ movie.updatedAt ? movie.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('backoffice_movie_show', {'id': movie.id}) }}" class="btn btn-info">show</a>
+                    <a href="{{ path('backoffice_movie_edit', {'id': movie.id}) }}" class="btn btn-warning">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="12">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('backoffice_movie_new') }}" class="btn btn-success">Create new</a>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'backoffice/backofficebase.html.twig' %}
+
+{% block title %}New Movie{% endblock %}
+
+{% block body %}
+    <a href="{{ path('backoffice_movie_index') }}" class="btn btn-info">back to list</a>
+    
+        <h1>Create new Movie</h1>
+        {{ include('backoffice/movie/_form.html.twig') }}
+    
+{% endblock %}

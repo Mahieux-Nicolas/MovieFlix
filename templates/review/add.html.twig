@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajout de Commentaire{% endblock %}
+
+{% block body %}
+
+
+<div class="container">
+    <h1>Ajouter une critique sur le film {{ movie.title }}</h1>
+    {{ form_start( formulaire, {attr: {novalidate: 'novalidate'}} ) }}
+
+        {{ form_widget(formulaire) }}
+
+        <button class="btn btn-success" type="submit">Ajouter</button>
+
+    {{ form_end(formulaire) }}
+</div>
+{# {{ form(formulaire) }} #}
+{% endblock %}

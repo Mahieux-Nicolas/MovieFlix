@@ -1,0 +1,37 @@
+{% extends 'backoffice/backofficebase.html.twig' %}
+
+{% block title %}Season index{% endblock %}
+
+{% block body %}
+    <h1>Season index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Number</th>
+                <th>EpisodesCount</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for season in seasons %}
+            <tr>
+                <td>{{ season.id }}</td>
+                <td>{{ season.number }}</td>
+                <td>{{ season.episodesCount }}</td>
+                <td>
+                    <a href="{{ path('backoffice_season_show', {'id': season.id}) }}" class="btn btn-info">show</a>
+                    <a href="{{ path('backoffice_season_edit', {'id': season.id}) }}" class="btn btn-warning">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('backoffice_season_new') }}" class="btn btn-success">Create new</a>
+{% endblock %}

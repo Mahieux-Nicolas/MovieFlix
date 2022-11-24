@@ -1,0 +1,11 @@
+{% extends 'backoffice/backofficebase.html.twig' %}
+
+{% block title %}New Casting{% endblock %}
+
+{% block body %}
+    <h1>Create new Casting</h1>
+
+    {{ include('backoffice/casting/_form.html.twig') }}
+
+    <a href="{{ path('backoffice_casting_index') }}" class="btn btn-info">back to list</a>
+{% endblock %}

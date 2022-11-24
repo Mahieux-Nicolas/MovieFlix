@@ -1,0 +1,35 @@
+{% extends 'backoffice/backofficebase.html.twig' %}
+
+{% block title %}Genre index{% endblock %}
+
+{% block body %}
+    <h1>Genre index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for genre in genres %}
+            <tr>
+                <td>{{ genre.id }}</td>
+                <td>{{ genre.name }}</td>
+                <td>
+                    <a href="{{ path('backoffice_genre_show', {'id': genre.id}) }}" class="btn btn-info">show</a>
+                    <a href="{{ path('backoffice_genre_edit', {'id': genre.id}) }}" class="btn btn-warning">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('backoffice_genre_new') }}" class="btn btn-success">Create new</a>
+{% endblock %}

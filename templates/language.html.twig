@@ -1,0 +1,21 @@
+{# 
+commentaire sur plusieurs lignes
+#}
+
+{% instruction_twig %}
+{#
+correspond à la balise <?php ?>
+extends 'file_name' : héritage de template
+block / endblock : définit une zone modifiable par héritage
+if / else / endif
+for item in list : boucle for
+#}
+{% extends "template" %}
+{% block name %}{% endblock %}
+{% if condition %}{% else %}{% endif %}
+{% for item in items %}
+    {# boucle #}
+{% endfor %}
+
+{# short echo tag : <?= ?> #}
+{{ variable }}
