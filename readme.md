@@ -3,7 +3,7 @@
 ### Page d'accueil avec l'ensemble une limitation de 10 films/série par page dynamisé
 ![accueil](docs/accueil.PNG)
 ### Détail du film dynamisé
-![detail](docs/detail.PNG)
+![detail](docs/détail.PNG)
 
 ### Une fonction qui permets d'ajouter un commentaire si l'utilisateur à le droit et est loggé
 ![detailloggé](docs/detail_loggé.PNG)
